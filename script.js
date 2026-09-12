@@ -45,10 +45,28 @@ function filterLibrary () {
     const readCell = document.createElement('td');
     readCell.textContent = book.read;
 
-    row.append(titleCell, authorCell, pagesCell, readCell);
+    const deleteBtnCell = document.createElement('td');
+    const deleteBookBtn = document.createElement('button');
+    deleteBookBtn.textContent = "Delete Book";
+    deleteBookBtn.classList.add('delete-btn');
+    deleteBookBtn.dataset.id = book.id;
+
+    deleteBtnCell.appendChild(deleteBookBtn);
+    row.append(titleCell, authorCell, pagesCell, readCell, deleteBtnCell);
     tbody.appendChild(row);
     table.appendChild(tbody);
     div.appendChild(table);
+
+    tbody.addEventListener('click', e => {
+      if (!e.target.classList.contains('delete-btn')) return;
+
+      const bookId = e.target.dataset.id;
+      const index = myLibrary.findIndex(book => book.id === bookId);
+      if (index !== -1) {
+  myLibrary.splice(index, 1);
+}
+      filterLibrary();
+    })
   })
 }
 
@@ -68,23 +86,3 @@ form.addEventListener('submit', e => {
   addBookToLibrary(bookTitle, bookAuthor, bookPages, readStatus);
   filterLibrary();
 })
-
-/* function TheHobbit () {
-     if (!new.target) {
-    throw Error("You must use the 'new' operator to call the constructor");
-  };
-
-  this.title = "The Hobbit",
-  this.author = "J.R.R",
-  this.pages = 295,
-  this.read = "Not ready yet",
-  this.getInfo = function info () {
-    console.log(`${this.title} by ${this.author}. Tolkien, ${this.pages} pages, ${this.read}`);
-  };
-};
-
-const book = new TheHobbit();
-
-book.getInfo();
-
-*/

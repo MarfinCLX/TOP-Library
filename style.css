@@ -54,3 +54,49 @@ caption {
   font-size: 23px;
   font-weight: 600;
 }
+
+.form-container {
+  margin-top: 40px;
+}
+
+.book-title, .book-author, .book-pages {
+  width: 200px;
+  height: 25px;
+  background-color: #fef;
+  color: #000;
+  font-size: 15px;
+  font-weight: 450;
+  border: none;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+
+label {
+  font-size: 23px;
+  margin-right: 7px;
+  color: #000;
+  font-weight: 550;
+}
+
+.input-container {
+  padding-bottom: 20px;
+}
+
+.is-read {
+  width: 15px;
+  height: 20px;
+}
+
+.submit-btn {
+  color: #fef;
+  background-color: rgb(22, 6, 6);
+  width: 200px;
+  height: 70px;
+  font-size: 23px;
+  font-weight: 550;
+  border: none;
+  border-radius: 5px;
+  padding: 15px 20px;
+  box-shadow: 0 0 7px #2b2a2a;
+  cursor: pointer;
+}
