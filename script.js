@@ -17,14 +17,16 @@ function addBookToLibrary(title, author, pages, read) {
   myLibrary.push(newBook);
 }
 
-addBookToLibrary("The Hobbit", "JRR", 295, "Ready");
-addBookToLibrary("1984", "George Orwell", 328, "Ready");
+addBookToLibrary("The Hobbit", "JRR", 295, "Readed");
+addBookToLibrary("1984", "George Orwell", 328, "Readed");
 
 console.log(myLibrary);
 
 function filterLibrary () {
-  const div = document.querySelector('.table-container');
+  const div = document.querySelector('.table-content');
   const table = document.querySelector('.table')
+
+  table.querySelectorAll('tbody').forEach(tbody => tbody.remove());
 
   myLibrary.map(book => {
     const tbody = document.createElement('tbody');
@@ -40,10 +42,10 @@ function filterLibrary () {
     const pagesCell = document.createElement('td');
     pagesCell.textContent = book.pages;
 
-    const statusCell = document.createElement('td');
-    statusCell.textContent = book.status;
+    const readCell = document.createElement('td');
+    readCell.textContent = book.read;
 
-    row.append(titleCell, authorCell, pagesCell, statusCell);
+    row.append(titleCell, authorCell, pagesCell, readCell);
     tbody.appendChild(row);
     table.appendChild(tbody);
     div.appendChild(table);
@@ -51,6 +53,21 @@ function filterLibrary () {
 }
 
 filterLibrary();
+
+const form = document.querySelector('form');
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const bookTitle = document.getElementById('bookTitle').value;
+  const bookAuthor = document.getElementById('bookAuthor').value;
+  const bookPages = document.getElementById('bookPages').value;
+  const isRead = document.getElementById('isRead').checked;
+  const readStatus = isRead ? "Readed" : "Not Readed";
+
+  addBookToLibrary(bookTitle, bookAuthor, bookPages, readStatus);
+  filterLibrary();
+})
 
 /* function TheHobbit () {
      if (!new.target) {

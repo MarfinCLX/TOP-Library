@@ -8,14 +8,43 @@
 </head>
 <body>
     <div class="table-container">
+    <div class="table-content">
         <table class="table">
+        <thead>
+            <caption>Books</caption>
             <tr>
                 <th>Title</th>
                 <th>Author</th>
                 <th>Pages</th>
                 <th>Status</th>
             </tr>
+        </thead>
         </table>
+    </div>
+    <div class="form-container">
+        <form action="#" method="get">
+            <div class="form-content">
+            <div class="book-title-container">
+            <label for="bookTitle">Book Title</label>
+            <input type="text" name="bookTitle" id="bookTitle" class="book-title" placeholder="Enter a book name" required>
+            </div>
+            <div class="book-author-container">
+            <label for="bookAuthor">Book Author</label>
+            <input type="text" name="bookAuthor" id="bookAuthor" class="book-author" placeholder="Enter a author of book" required>
+            </div>
+            <div class="book-pages-container">
+            <label for="bookPages">Pages of book</label>
+            <input type="num" name="bookPages" id="bookPages" class="book-pages" placeholder="Enter a pages of book" required>
+            </div>
+            <div class="is-read-container">
+            <label for="isRead">Is Readed(optional)?</label>
+            <input type="checkbox" id="isRead" class="is-read">
+            </div>
+            <div class="submit-btn-container">
+            <button type="submit" class="submit-btn">Add book</button>
+            </div>
+        </form>
+    </div>
     </div>
     <script src="script.js"></script>
 </body>
