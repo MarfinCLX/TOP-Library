@@ -11,6 +11,10 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
+Book.prototype.toggleRead = function () {
+  this.read = !this.read;
+}
+
 function addBookToLibrary(title, author, pages, read) {
   const newBook = new Book(title, author, pages, read);
 
@@ -43,7 +47,14 @@ function filterLibrary () {
     pagesCell.textContent = book.pages;
 
     const readCell = document.createElement('td');
-    readCell.textContent = book.read;
+    readCell.textContent = book.read ? "Readed" : "Not Readed";
+
+    const toggleReadBtnCell = document.createElement('td');
+    const toggleReadtn = document.createElement('button');
+    toggleReadtn.textContent = "Change Read Status";
+    toggleReadtn.classList.add('toggle-read-btn');
+    toggleReadtn.dataset.id = book.id;
+    toggleReadBtnCell.appendChild(toggleReadtn);
 
     const deleteBtnCell = document.createElement('td');
     const deleteBookBtn = document.createElement('button');
@@ -52,7 +63,7 @@ function filterLibrary () {
     deleteBookBtn.dataset.id = book.id;
 
     deleteBtnCell.appendChild(deleteBookBtn);
-    row.append(titleCell, authorCell, pagesCell, readCell, deleteBtnCell);
+    row.append(titleCell, authorCell, pagesCell, readCell, toggleReadBtnCell,deleteBtnCell);
     tbody.appendChild(row);
     table.appendChild(tbody);
     div.appendChild(table);
@@ -62,13 +73,24 @@ function filterLibrary () {
 
       const bookId = e.target.dataset.id;
       const index = myLibrary.findIndex(book => book.id === bookId);
+
       if (index !== -1) {
-  myLibrary.splice(index, 1);
-}
+        myLibrary.splice(index, 1);
+      };
+
       filterLibrary();
-    })
-  })
-}
+    });
+    tbody.addEventListener('click', e => {
+      if (!e.target.classList.contains('toggle-read-btn')) return;
+
+      const bookId = e.target.dataset.id;
+      const book = myLibrary.find(b => b.id === bookId);
+
+      book.toggleRead();
+      filterLibrary();
+    });
+  });
+};
 
 filterLibrary();
 
@@ -81,8 +103,7 @@ form.addEventListener('submit', e => {
   const bookAuthor = document.getElementById('bookAuthor').value;
   const bookPages = document.getElementById('bookPages').value;
   const isRead = document.getElementById('isRead').checked;
-  const readStatus = isRead ? "Readed" : "Not Readed";
 
-  addBookToLibrary(bookTitle, bookAuthor, bookPages, readStatus);
+  addBookToLibrary(bookTitle, bookAuthor, bookPages, isRead);
   filterLibrary();
 })
